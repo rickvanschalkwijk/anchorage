@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ac", "ac\ac.csproj", "{44866E41-60FB-427B-8BFD-BA83C379CA43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anchorage", "ac\Anchorage.csproj", "{44866E41-60FB-427B-8BFD-BA83C379CA43}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
