@@ -2,7 +2,7 @@
 
 namespace Anchorage.CodeAnalysis
 {
-    class Parser
+    public class Parser
     {
         private readonly SyntaxToken[] _tokens;
         private int _position;

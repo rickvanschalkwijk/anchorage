@@ -2,11 +2,11 @@
 
 namespace Anchorage.CodeAnalysis
 {
-    class Lexer
+    public sealed class Lexer
     {
         private readonly string _text;
         private int _position;
-        private List<string> _diagnostics = new List<string>();
+        private readonly List<string> _diagnostics = new List<string>();
 
         public Lexer(string text)
         {
@@ -17,10 +17,6 @@ namespace Anchorage.CodeAnalysis
 
         public SyntaxToken NextToken()
         {
-            // <number>
-            // + - * / ()
-            // <whitespace>
-
             if (_position >= _text.Length)
                 return new SyntaxToken(SyntaxKind.EndOfFileToken, _position, "\0", null);
 
