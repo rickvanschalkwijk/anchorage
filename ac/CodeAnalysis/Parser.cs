@@ -36,40 +36,45 @@ namespace Anchorage.CodeAnalysis
 
         public SyntaxTree Parse()
         {
-            var expression = ParseTerm();
+            var expression = ParseExpression();
             var endOfFileToken = MatchToken(SyntaxKind.EndOfFileToken);
 
             return new SyntaxTree(_diagnostics, expression, endOfFileToken);
         }
 
-        public ExpressionSyntax ParseTerm()
+        private ExpressionSyntax ParseExpression(int parentPrecedence = 0)
         {
-            var left = ParseFactor();
+            var left = ParsePrimaryExpression();
 
-            while (Current.Kind == SyntaxKind.PlusToken ||
-                   Current.Kind == SyntaxKind.MinusToken)
+            while (true)
             {
+                var precedence = GetBinaryOperatorPrecedence(Current.Kind);
+                if (precedence == 0 || precedence <= parentPrecedence)
+                    break;
+
                 var operatorToken = NextToken();
-                var right = ParseFactor();
+                var right = ParseExpression(precedence);
+
                 left = new BinaryExpressionSyntax(left, operatorToken, right);
             }
 
             return left;
         }
 
-        public ExpressionSyntax ParseFactor()
+        private static int GetBinaryOperatorPrecedence(SyntaxKind kind)
         {
-            var left = ParsePrimaryExpression();
-
-            while (Current.Kind == SyntaxKind.StarToken ||
-                   Current.Kind == SyntaxKind.SlashToken)
+            switch (kind)
             {
-                var operatorToken = NextToken();
-                var right = ParsePrimaryExpression();
-                left = new BinaryExpressionSyntax(left, operatorToken, right);
+                case SyntaxKind.StarToken:
+                case SyntaxKind.SlashToken:
+                    return 2;
+
+                case SyntaxKind.PlusToken:
+                case SyntaxKind.MinusToken:
+                    return 1;
             }
 
-            return left;
+            return 0;
         }
 
         private SyntaxToken NextToken()
@@ -104,11 +109,6 @@ namespace Anchorage.CodeAnalysis
             var numberToken = MatchToken(SyntaxKind.NumberToken);
 
             return new LiteralExpressionSyntax(numberToken);
-        }
-
-        private ExpressionSyntax ParseExpression()
-        {
-            return ParseTerm();
         }
 
         private SyntaxToken Peek(int offset)

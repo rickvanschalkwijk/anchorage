@@ -48,7 +48,6 @@ namespace Anchorage.CodeAnalysis
 
                 return new SyntaxToken(SyntaxKind.WhiteSpaceToken, start, text, null);
             }
-
             switch (Current)
             {
                 case '+':
