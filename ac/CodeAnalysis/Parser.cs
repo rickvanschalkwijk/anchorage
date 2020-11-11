@@ -2,7 +2,7 @@
 
 namespace Anchorage.CodeAnalysis
 {
-    public class Parser
+    internal sealed class Parser
     {
         private readonly SyntaxToken[] _tokens;
         private int _position;
@@ -37,7 +37,7 @@ namespace Anchorage.CodeAnalysis
         public SyntaxTree Parse()
         {
             var expression = ParseTerm();
-            var endOfFileToken = Match(SyntaxKind.EndOfFileToken);
+            var endOfFileToken = MatchToken(SyntaxKind.EndOfFileToken);
 
             return new SyntaxTree(_diagnostics, expression, endOfFileToken);
         }
@@ -72,11 +72,6 @@ namespace Anchorage.CodeAnalysis
             return left;
         }
 
-        private ExpressionSyntax ParseExpression()
-        {
-            return ParseTerm();
-        }
-
         private SyntaxToken NextToken()
         {
             var current = Current;
@@ -85,7 +80,7 @@ namespace Anchorage.CodeAnalysis
             return current;
         }
 
-        private SyntaxToken Match(SyntaxKind kind)
+        private SyntaxToken MatchToken(SyntaxKind kind)
         {
             if (Current.Kind == kind)
                 return NextToken();
@@ -101,14 +96,19 @@ namespace Anchorage.CodeAnalysis
             {
                 var left = NextToken();
                 var expression = ParseExpression();
-                var right = Match(SyntaxKind.CloseParenthesisToken);
+                var right = MatchToken(SyntaxKind.CloseParenthesisToken);
 
                 return new ParenthesizedExpressionSyntax(left, expression, right);
             }
 
-            var numberToken = Match(SyntaxKind.NumberToken);
+            var numberToken = MatchToken(SyntaxKind.NumberToken);
 
-            return new NumberExpressionSyntax(numberToken);
+            return new LiteralExpressionSyntax(numberToken);
+        }
+
+        private ExpressionSyntax ParseExpression()
+        {
+            return ParseTerm();
         }
 
         private SyntaxToken Peek(int offset)
