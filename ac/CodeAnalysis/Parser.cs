@@ -5,8 +5,8 @@ namespace Anchorage.CodeAnalysis
     internal sealed class Parser
     {
         private readonly SyntaxToken[] _tokens;
-        private int _position;
         private readonly List<string> _diagnostics = new List<string>();
+        private int _position;
 
         public IEnumerable<string> Diagnostics => _diagnostics;
 
@@ -15,7 +15,6 @@ namespace Anchorage.CodeAnalysis
             var tokens = new List<SyntaxToken>();
 
             var lexer = new Lexer(text);
-
             SyntaxToken token;
 
             do
@@ -72,9 +71,10 @@ namespace Anchorage.CodeAnalysis
                 case SyntaxKind.PlusToken:
                 case SyntaxKind.MinusToken:
                     return 1;
-            }
 
-            return 0;
+                default:
+                    return 0;
+            }
         }
 
         private SyntaxToken NextToken()
