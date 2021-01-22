@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Anchorage.CodeAnalysis
+namespace Anchorage.CodeAnalysis.Syntax
 {
     public sealed class SyntaxTree
     {

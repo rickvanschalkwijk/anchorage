@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Anchorage.CodeAnalysis
+namespace Anchorage.CodeAnalysis.Syntax
 {
     internal sealed class Lexer
     {
