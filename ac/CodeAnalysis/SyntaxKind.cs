@@ -12,8 +12,10 @@
         SlashToken,
         OpenParenthesisToken,
         CloseParenthesisToken,
-        BinaryExpression,
+
         LiteralExpression,
+        UnaryExpression,
+        BinaryExpression,
         ParenthesizedExpression,
     }
 }
