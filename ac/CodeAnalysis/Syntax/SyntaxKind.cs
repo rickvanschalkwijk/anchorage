@@ -1,4 +1,4 @@
-﻿namespace Anchorage.CodeAnalysis
+﻿namespace Anchorage.CodeAnalysis.Syntax
 {
     public enum SyntaxKind
     {

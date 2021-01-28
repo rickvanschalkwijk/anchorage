@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Anchorage.CodeAnalysis;
+using Anchorage.CodeAnalysis.Syntax;
 
 namespace Anchorage
 {
