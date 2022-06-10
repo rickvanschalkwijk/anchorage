@@ -1,13 +1,14 @@
 ﻿using System;
+using Anchorage.CodeAnalysis.Binding;
 using Anchorage.CodeAnalysis.Syntax;
 
 namespace Anchorage.CodeAnalysis
 {
     public sealed class Evaluator
     {
-        private readonly ExpressionSyntax _root;
+        private readonly BoundExpression _root;
 
-        public Evaluator(ExpressionSyntax root)
+        public Evaluator(BoundExpression root)
         {
             _root = root;
         }
@@ -17,21 +18,21 @@ namespace Anchorage.CodeAnalysis
             return EvaluateExpression(_root);
         }
 
-        private int EvaluateExpression(ExpressionSyntax node)
+        private int EvaluateExpression(BoundExpression node)
         {
-            if (node is LiteralExpressionSyntax n)
-                return (int)n.LiteralToken.Value;
+            if (node is BoundLiteralExpression n)
+                return (int)n.Value;
 
-            if (node is UnaryExpressionSyntax u)
+            if (node is BoundUnaryExpression u)
             {
                 var operand = EvaluateExpression(u.Operand);
 
-                if (u.OperatorToken.Kind == SyntaxKind.PlusToken)
+                if (u.OperatorKind == BoundUnaryOperatorKind.Identity)
                     return operand;
-                else if (u.OperatorToken.Kind == SyntaxKind.MinusToken)
+                else if (u.OperatorKind == BoundUnaryOperatorKind.Negation)
                     return -operand;
                 else
-                    throw new Exception($"Unexpected unary operator {u.OperatorToken.Kind}.");
+                    throw new Exception($"Unexpected unary operator {u.OperatorKind}.");
             }
 
             if (node is BinaryExpressionSyntax b)
