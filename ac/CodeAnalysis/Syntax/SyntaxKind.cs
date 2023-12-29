@@ -14,6 +14,9 @@ public enum SyntaxKind
     OpenParenthesisToken,
     CloseParenthesisToken,
     IdentifierToken,
+    BangToken,
+    AmpersandAmpersandToken,
+    PipePipeToken,
 
     // Keywords
     FalseKeyword,
