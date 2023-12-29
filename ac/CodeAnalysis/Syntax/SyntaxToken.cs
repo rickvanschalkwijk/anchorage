@@ -1,29 +1,28 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Anchorage.CodeAnalysis.Syntax
+namespace Anchorage.CodeAnalysis.Syntax;
+
+public sealed class SyntaxToken : SyntaxNode
 {
-    public sealed class SyntaxToken : SyntaxNode
+    public SyntaxToken(SyntaxKind kind, int position, string text, object value)
     {
-        public SyntaxToken(SyntaxKind kind, int position, string text, object value)
-        {
-            Kind = kind;
-            Position = position;
-            Text = text;
-            Value = value;
-        }
+        Kind = kind;
+        Position = position;
+        Text = text;
+        Value = value;
+    }
 
-        public override SyntaxKind Kind { get; }
+    public override SyntaxKind Kind { get; }
 
-        public int Position { get; }
+    public int Position { get; }
 
-        public string Text { get; }
+    public string Text { get; }
 
-        public object Value { get; }
+    public object Value { get; }
 
-        public override IEnumerable<SyntaxNode> GetChildren()
-        {
-            return Enumerable.Empty<SyntaxNode>();
-        }
+    public override IEnumerable<SyntaxNode> GetChildren()
+    {
+        return Enumerable.Empty<SyntaxNode>();
     }
 }

@@ -1,28 +1,27 @@
 ﻿using System.Collections.Generic;
 
-namespace Anchorage.CodeAnalysis.Syntax
+namespace Anchorage.CodeAnalysis.Syntax;
+
+public sealed class BinaryExpressionSyntax : ExpressionSyntax
 {
-    public sealed class BinaryExpressionSyntax : ExpressionSyntax
+    public BinaryExpressionSyntax(ExpressionSyntax left, SyntaxToken operatorToken, ExpressionSyntax right)
     {
-        public BinaryExpressionSyntax(ExpressionSyntax left, SyntaxToken operatorToken, ExpressionSyntax right)
-        {
-            Left = left;
-            OperatorToken = operatorToken;
-            Right = right;
-        }
-        public override SyntaxKind Kind => SyntaxKind.BinaryExpression;
+        Left = left;
+        OperatorToken = operatorToken;
+        Right = right;
+    }
+    public override SyntaxKind Kind => SyntaxKind.BinaryExpression;
 
-        public ExpressionSyntax Left { get; }
+    public ExpressionSyntax Left { get; }
 
-        public SyntaxToken OperatorToken { get; }
+    public SyntaxToken OperatorToken { get; }
 
-        public ExpressionSyntax Right { get; }
+    public ExpressionSyntax Right { get; }
 
-        public override IEnumerable<SyntaxNode> GetChildren()
-        {
-            yield return Left;
-            yield return OperatorToken;
-            yield return Right;
-        }
+    public override IEnumerable<SyntaxNode> GetChildren()
+    {
+        yield return Left;
+        yield return OperatorToken;
+        yield return Right;
     }
 }

@@ -1,81 +1,86 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Anchorage.CodeAnalysis;
+using Anchorage.CodeAnalysis.Binding;
 using Anchorage.CodeAnalysis.Syntax;
 
-namespace Anchorage
+namespace Anchorage;
+
+internal static class Program
 {
-    internal static class Program
+    private static void Main()
     {
-        private static void Main()
+        var showTree = false;
+
+        while (true)
         {
-            var showTree = false;
+            Console.Write("> ");
 
-            while (true)
+            var line = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(line))
+                return;
+
+            if (line == "#showTree")
             {
-                Console.Write("> ");
+                showTree = !showTree;
+                Console.WriteLine(showTree ? "Showing parse trees." : "Not showing parse trees.");
+                continue;
+            }
+            var syntaxTree = SyntaxTree.Parse(line);
+            var binder = new Binder();
+            var boundExpression = binder.BindExpression(syntaxTree.Root);
+                
+            var diagnostics = syntaxTree.Diagnostics.Concat(binder.Diagnostics).ToArray();
+                
+            if (showTree)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                PrettyPrint(syntaxTree.Root);
+                Console.ResetColor();
+            }
 
-                var line = Console.ReadLine();
-                if (string.IsNullOrWhiteSpace(line))
-                    return;
+            if (!diagnostics.Any())
+            {
+                var e = new Evaluator(boundExpression);
+                var result = e.Evaluate();
+                Console.WriteLine(result);
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
 
-                if (line == "#showTree")
-                {
-                    showTree = !showTree;
-                    Console.WriteLine(showTree ? "Showing parse trees." : "Not showing parse trees.");
-                    continue;
-                }
-                var syntaxTree = SyntaxTree.Parse(line);
+                foreach (var diagnostic in syntaxTree.Diagnostics)
+                    Console.WriteLine(diagnostic);
 
-                if (showTree)
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
-                    PrettyPrint(syntaxTree.Root);
-                    Console.ResetColor();
-                }
-
-                if (!syntaxTree.Diagnostics.Any())
-                {
-                    var e = new Evaluator(syntaxTree.Root);
-                    var result = e.Evaluate();
-                    Console.WriteLine(result);
-                }
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-
-                    foreach (var diagnostic in syntaxTree.Diagnostics)
-                        Console.WriteLine(diagnostic);
-
-                    Console.ResetColor();
-                }
+                Console.ResetColor();
             }
         }
+    }
 
-        static void PrettyPrint(SyntaxNode node, string indent = "", bool IsLast = true)
+    static void PrettyPrint(SyntaxNode node, string indent = "", bool IsLast = true)
+    {
+        var marker = IsLast ? "└──" : "├──";
+
+        Console.Write(indent);
+        Console.Write(marker);
+        Console.Write(node.Kind);
+
+        if (node is SyntaxToken t && t.Value != null)
         {
-            var marker = IsLast ? "└──" : "├──";
+            Console.Write(" ");
+            Console.Write(t.Value);
+        }
 
-            Console.Write(indent);
-            Console.Write(marker);
-            Console.Write(node.Kind);
+        Console.WriteLine();
 
-            if (node is SyntaxToken t && t.Value != null)
-            {
-                Console.Write(" ");
-                Console.Write(t.Value);
-            }
+        indent += IsLast ? "   " : "│   ";
 
-            Console.WriteLine();
+        var lastChild = node.GetChildren().LastOrDefault();
 
-            indent += IsLast ? "   " : "│   ";
-
-            var lastChild = node.GetChildren().LastOrDefault();
-
-            foreach (var child in node.GetChildren())
-            {
-                PrettyPrint(child, indent, child == lastChild);
-            }
+        foreach (var child in node.GetChildren())
+        {
+            PrettyPrint(child, indent, child == lastChild);
         }
     }
 }
