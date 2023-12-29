@@ -1,10 +1,14 @@
-name: .NET5 build and test
+name: .NET6 build and test
 
 on:
   push:
-    branches: [ master ]
+    branches: 
+        - master
+        - 'feature/**'
   pull_request:
-    branches: [ master ]
+    branches: 
+        - master
+        - 'feature/**'
 
 jobs:
   build:
@@ -12,12 +16,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET5
-      uses: actions/setup-dotnet@v1
+    - uses: actions/checkout@v4
+    - name: Setup .NET 6
+      uses: actions/setup-dotnet@v3
       with:
-        dotnet-version:  5.0.100
+        dotnet-version:  6.0.x
     - name: Install dependencies
-      run: dotnet restore
+      run:  dotnet restore
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run:  dotnet build --configuration Release --no-restore
