@@ -17,7 +17,7 @@
 
 ```
 
-![.NET5 build and test](https://github.com/rickvanschalkwijk/anchorage/workflows/.NET5%20build%20and%20test/badge.svg)
+![.NET 10 build and test](https://github.com/rickvanschalkwijk/anchorage/workflows/.NET%2010%20build%20and%20test/badge.svg)
 
 
 This repo contains Anchorage, a handwritten compiler in C#. 
