@@ -3,7 +3,7 @@
 public sealed class LiteralExpressionSyntax : ExpressionSyntax
 {
     public LiteralExpressionSyntax(SyntaxToken literalToken) 
-        : this(literalToken, literalToken.Value)
+        : this(literalToken, literalToken.Value!)
     {
     }
     

@@ -62,7 +62,8 @@ internal sealed class Binder
             return kind switch
             {
                 SyntaxKind.PlusToken => BoundUnaryOperatorKind.Identity,
-                SyntaxKind.MinusToken => BoundUnaryOperatorKind.Negation
+                SyntaxKind.MinusToken => BoundUnaryOperatorKind.Negation,
+                _ => null
             };
         }
 
@@ -71,6 +72,7 @@ internal sealed class Binder
             return kind switch
             {
                 SyntaxKind.BangToken => BoundUnaryOperatorKind.LogicalNegation,
+                _ => null
             };
         }
 
@@ -87,7 +89,8 @@ internal sealed class Binder
                 SyntaxKind.PlusToken => BoundBinaryOperatorKind.Addition,
                 SyntaxKind.MinusToken => BoundBinaryOperatorKind.Subtraction,
                 SyntaxKind.StarToken => BoundBinaryOperatorKind.Multiplication,
-                SyntaxKind.SlashToken => BoundBinaryOperatorKind.Division
+                SyntaxKind.SlashToken => BoundBinaryOperatorKind.Division,
+                _ => null
             };
         }
 
@@ -96,7 +99,8 @@ internal sealed class Binder
             return kind switch
             {
                 SyntaxKind.AmpersandAmpersandToken => BoundBinaryOperatorKind.LogicalAnd,
-                SyntaxKind.PipePipeToken => BoundBinaryOperatorKind.LogicalOr
+                SyntaxKind.PipePipeToken => BoundBinaryOperatorKind.LogicalOr,
+                _ => null
             };
         }
         
