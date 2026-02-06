@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Anchorage.CodeAnalysis.Binding;
+﻿using Anchorage.CodeAnalysis.Binding;
 
 namespace Anchorage.CodeAnalysis.Syntax;
 
@@ -7,7 +6,7 @@ internal sealed class Lexer
 {
     private readonly string _text;
     private int _position;
-    private readonly List<string> _diagnostics = new List<string>();
+    private readonly List<string> _diagnostics = [];
 
     public Lexer(string text)
     {

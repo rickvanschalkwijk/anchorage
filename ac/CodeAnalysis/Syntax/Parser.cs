@@ -1,18 +1,16 @@
-﻿using System.Collections.Generic;
-
-namespace Anchorage.CodeAnalysis.Syntax;
+﻿namespace Anchorage.CodeAnalysis.Syntax;
 
 internal sealed class Parser
 {
     private readonly SyntaxToken[] _tokens;
-    private readonly List<string> _diagnostics = new List<string>();
+    private readonly List<string> _diagnostics = [];
     private int _position;
 
     public IEnumerable<string> Diagnostics => _diagnostics;
 
     public Parser(string text)
     {
-        var tokens = new List<SyntaxToken>();
+        List<SyntaxToken> tokens = [];
 
         var lexer = new Lexer(text);
         SyntaxToken token;

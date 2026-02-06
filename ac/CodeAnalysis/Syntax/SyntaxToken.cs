@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace Anchorage.CodeAnalysis.Syntax;
+﻿namespace Anchorage.CodeAnalysis.Syntax;
 
 public sealed class SyntaxToken : SyntaxNode
 {

@@ -1,5 +1,4 @@
-﻿using System;
-using Anchorage.CodeAnalysis.Binding;
+﻿using Anchorage.CodeAnalysis.Binding;
 
 namespace Anchorage.CodeAnalysis;
 

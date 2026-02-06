@@ -1,5 +1,3 @@
-using System;
-
 namespace Anchorage.CodeAnalysis.Binding;
 
 internal sealed class BoundLiteralExpression : BoundExpression

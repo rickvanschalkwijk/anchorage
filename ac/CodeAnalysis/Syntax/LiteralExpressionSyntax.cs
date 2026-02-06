@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Anchorage.CodeAnalysis.Syntax;
+﻿namespace Anchorage.CodeAnalysis.Syntax;
 
 public sealed class LiteralExpressionSyntax : ExpressionSyntax
 {

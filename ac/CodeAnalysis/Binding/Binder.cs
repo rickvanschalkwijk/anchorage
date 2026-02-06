@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using Anchorage.CodeAnalysis.Syntax;
+﻿using Anchorage.CodeAnalysis.Syntax;
 
 namespace Anchorage.CodeAnalysis.Binding;
 
 internal sealed class Binder
 {
-    private readonly List<string> _diagnostics = new List<string>();
+    private readonly List<string> _diagnostics = [];
 
     public IEnumerable<string> Diagnostics => _diagnostics;
 

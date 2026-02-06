@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Anchorage.CodeAnalysis;
+﻿using Anchorage.CodeAnalysis;
 using Anchorage.CodeAnalysis.Binding;
 using Anchorage.CodeAnalysis.Syntax;
 
