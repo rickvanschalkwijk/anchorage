@@ -1,10 +1,14 @@
-name: .NET5 build and test
+name: .NET 10 build and test
 
 on:
   push:
-    branches: [ master ]
+    branches: 
+        - master
+        - 'feature/**'
   pull_request:
-    branches: [ master ]
+    branches: 
+        - master
+        - 'feature/**'
 
 jobs:
   build:
@@ -12,11 +16,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET5
-      uses: actions/setup-dotnet@v1
+    - uses: actions/checkout@v4
+    - name: Setup .NET 10
+      uses: actions/setup-dotnet@v4
       with:
-        dotnet-version:  5.0.100
+        dotnet-version: 10.0.x
     - name: Install dependencies
       run: dotnet restore
     - name: Build
